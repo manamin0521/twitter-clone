@@ -19,6 +19,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def followings
+    @followings = user.following_relationships
+  end
+  
+  def followers
+    @followers = following_relationships.find_by(followed_id: user.id)
+  end
+
   private
 
   def user_params
