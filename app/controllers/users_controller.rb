@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   
-  def show #
+  def show
    @user = User.find(params[:id])
    @microposts = @user.microposts.order(created_at: :desc)
   end
@@ -18,13 +18,19 @@ class UsersController < ApplicationController
       render 'new'
     end
   end
-
-  def followings
-    @followings = user.following_relationships
-  end
   
+  def following
+    @title = "Following"
+    @user  = User.find(params[:id])
+    @users = @user.following
+    render 'show_follow'
+  end
+
   def followers
-    @followers = following_relationships.find_by(followed_id: user.id)
+    @title = "Followers"
+    @user  = User.find(params[:id])
+    @users = @user.followers
+    render 'show_follow'
   end
 
   private

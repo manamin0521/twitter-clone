@@ -1,6 +1,0 @@
-<% @followers.each |follower| do %>
-    <li id="user-<%= follower.user.id %>">
-      <%= link_to gravatar_for(follower.user, size: 50), follower.user %>
-      <span class="user"><%= link_to follower.user.name, follower.user %></span>
-    </li>
-<% end %>

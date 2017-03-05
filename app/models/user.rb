@@ -10,7 +10,13 @@ class User < ActiveRecord::Base
     has_many :following_relationships, class_name:  "Relationship",
                                      foreign_key: "follower_id",
                                      dependent:   :destroy
-    has_many :following_users, through: :following_relationships, source: :followed
+                                     
+    has_many :passive_relationships, class_name:  "Relationship",
+                                   foreign_key: "followed_id",
+                                   dependent:   :destroy
+
+    has_many :following, through: :following_relationships, source: :followed
+    has_many :followers, through: :passive_relationships, source: :follower
     
     def follow(other_user)
         following_relationships.find_or_create_by(followed_id: other_user.id)
@@ -24,6 +30,6 @@ class User < ActiveRecord::Base
 
   # あるユーザーをフォローしているかどうか？
     def following?(other_user)
-        following_users.include?(other_user)
+        following.include?(other_user)
     end
 end
