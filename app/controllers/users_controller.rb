@@ -32,7 +32,7 @@ class UsersController < ApplicationController
     @users = @user.followers
     render 'show_follow'
   end
-
+  
   private
 
   def user_params
